@@ -12,25 +12,14 @@ import { CreateUserParams, UpdateUserParams } from '@/types'
 
 export async function createUser(user: CreateUserParams) {
   try {
-    await connectToDatabase();
+    await connectToDatabase()
 
-    const newUser = await User.create(user);
-
-    if (!newUser) {
-      throw new Error('User creation failed');
-    }
-
-    return JSON.parse(JSON.stringify(newUser));
-  } catch (error: any) {
-    if (error.name === 'ValidationError') {
-      // Handle validation errors
-      console.error('Validation error:', error.message);
-    } else {
-      handleError(error);
-    }
+    const newUser = await User.create(user)
+    return JSON.parse(JSON.stringify(newUser))
+  } catch (error) {
+    handleError(error)
   }
 }
-
 
 export async function getUserById(userId: string) {
   try {
